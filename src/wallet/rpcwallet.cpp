@@ -3867,12 +3867,12 @@ UniValue z_sendmany(const UniValue& params, bool fHelp)
         // or anything less than nDefaultFee instead of being forced to use a custom fee and leak metadata
         if (nTotalOut < nDefaultFee) {
             if (nFee > nDefaultFee) {
-                throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("Small transaction amount %s has fee %s that is greater than the default fee %s", FormatMoney(nTotalOut), FormatMoney(nFee), FormatMoney(nDefaultFee)));
+                //throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("Small transaction amount %s has fee %s that is greater than the default fee %s", FormatMoney(nTotalOut), FormatMoney(nFee), FormatMoney(nDefaultFee)));
             }
         } else {
             // Check that the user specified fee is not absurd.
             if (nFee > nTotalOut) {
-                throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("Fee %s is greater than the sum of outputs %s and also greater than the default fee", FormatMoney(nFee), FormatMoney(nTotalOut)));
+                //throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("Fee %s is greater than the sum of outputs %s and also greater than the default fee", FormatMoney(nFee), FormatMoney(nTotalOut)));
             }
 	}
     }
