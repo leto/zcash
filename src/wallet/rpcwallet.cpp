@@ -1022,7 +1022,7 @@ UniValue sendmany(const UniValue& params, bool fHelp)
         }
 
         if (destinations.count(dest)) {
-            throw JSONRPCError(RPC_INVALID_PARAMETER, std::string("Invalid parameter, duplicated address: ") + name_);
+            //throw JSONRPCError(RPC_INVALID_PARAMETER, std::string("Invalid parameter, duplicated address: ") + name_);
         }
         destinations.insert(dest);
 
