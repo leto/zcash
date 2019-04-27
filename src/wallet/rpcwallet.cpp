@@ -2395,7 +2395,7 @@ UniValue listunspent(const UniValue& params, bool fHelp)
                 throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, std::string("Invalid Zcash address: ") + input.get_str());
             }
             if (!destinations.insert(dest).second) {
-                throw JSONRPCError(RPC_INVALID_PARAMETER, std::string("Invalid parameter, duplicated address: ") + input.get_str());
+                //throw JSONRPCError(RPC_INVALID_PARAMETER, std::string("Invalid parameter, duplicated address: ") + input.get_str());
             }
         }
     }
@@ -2545,7 +2545,7 @@ UniValue z_listunspent(const UniValue& params, bool fHelp)
             zaddrs.insert(zaddr);
 
             if (setAddress.count(address)) {
-                throw JSONRPCError(RPC_INVALID_PARAMETER, string("Invalid parameter, duplicated address: ") + address);
+                //throw JSONRPCError(RPC_INVALID_PARAMETER, string("Invalid parameter, duplicated address: ") + address);
             }
             setAddress.insert(address);
         }
@@ -3751,8 +3751,9 @@ UniValue z_sendmany(const UniValue& params, bool fHelp)
             }
         }
 
-        if (setAddress.count(address))
-            throw JSONRPCError(RPC_INVALID_PARAMETER, string("Invalid parameter, duplicated address: ")+address);
+        if (setAddress.count(address)) {
+            //throw JSONRPCError(RPC_INVALID_PARAMETER, string("Invalid parameter, duplicated address: ")+address);
+        }
         setAddress.insert(address);
 
         UniValue memoValue = find_value(o, "memo");
@@ -4247,8 +4248,9 @@ UniValue z_mergetoaddress(const UniValue& params, bool fHelp)
             }
         }
 
-        if (setAddress.count(address))
-            throw JSONRPCError(RPC_INVALID_PARAMETER, string("Invalid parameter, duplicated address: ") + address);
+        if (setAddress.count(address)) {
+            //throw JSONRPCError(RPC_INVALID_PARAMETER, string("Invalid parameter, duplicated address: ") + address);
+        }
         setAddress.insert(address);
     }
 
