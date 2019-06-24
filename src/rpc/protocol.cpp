@@ -124,4 +124,3 @@ void DeleteAuthCookie()
         LogPrintf("%s: Unable to remove random auth cookie file: %s\n", __func__, e.what());
     }
 }
-

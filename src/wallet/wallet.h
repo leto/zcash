@@ -389,7 +389,7 @@ public:
     bool AcceptToMemoryPool(bool fLimitFree=true, bool fRejectAbsurdFee=true);
 };
 
-/** 
+/**
  * A transaction with a bunch of additional info that only the owner cares about.
  * It includes any unrecorded transactions needed to link it back to the block chain.
  */
@@ -718,7 +718,7 @@ private:
 };
 
 
-/** 
+/**
  * A CWallet is an extension of a keystore, which also maintains a set of transactions and balances,
  * and provides the ability to create new transactions.
  */
@@ -1095,7 +1095,7 @@ public:
     bool LoadCryptedSaplingZKey(const libzcash::SaplingExtendedFullViewingKey &extfvk,
                                 const std::vector<unsigned char> &vchCryptedSecret);
 
-    /** 
+    /**
      * Increment the next transaction order id
      * @return next transaction order id
      */
@@ -1222,7 +1222,7 @@ public:
         LOCK(cs_wallet);
         mapRequestCount[hash] = 0;
     };
-    
+
     unsigned int GetKeyPoolSize()
     {
         AssertLockHeld(cs_wallet); // setKeyPool
@@ -1248,8 +1248,8 @@ public:
 
     //! Verify the wallet database and perform salvage if required
     static bool Verify(const std::string& walletFile, std::string& warningString, std::string& errorString);
-    
-    /** 
+
+    /**
      * Address book entry changed.
      * @note called with lock cs_wallet held.
      */
@@ -1258,7 +1258,7 @@ public:
             const std::string &purpose,
             ChangeType status)> NotifyAddressBookChanged;
 
-    /** 
+    /**
      * Wallet transaction added, removed or updated.
      * @note called with lock cs_wallet held.
      */
@@ -1299,7 +1299,7 @@ public:
     bool LoadHDSeed(const HDSeed& key);
     /* Set the current encrypted HD seed, without saving it to disk (used by LoadWallet) */
     bool LoadCryptedHDSeed(const uint256& seedFp, const std::vector<unsigned char>& seed);
-    
+
     /* Find notes filtered by payment address, min depth, ability to spend */
     void GetFilteredNotes(std::vector<CSproutNotePlaintextEntry>& sproutEntries,
                           std::vector<SaplingNoteEntry>& saplingEntries,
@@ -1346,7 +1346,7 @@ public:
 };
 
 
-/** 
+/**
  * Account information.
  * Stored in wallet with key "acc"+string account name.
  */
@@ -1431,7 +1431,7 @@ private:
     boost::optional<std::string> hdKeypath; // currently sapling only
     boost::optional<std::string> seedFpStr; // currently sapling only
     bool log;
-public: 
+public:
     AddSpendingKeyToWallet(CWallet *wallet, const Consensus::Params &params) :
         m_wallet(wallet), params(params), nTime(1), hdKeypath(boost::none), seedFpStr(boost::none), log(false) {}
     AddSpendingKeyToWallet(
@@ -1446,7 +1446,7 @@ public:
 
     SpendingKeyAddResult operator()(const libzcash::SproutSpendingKey &sk) const;
     SpendingKeyAddResult operator()(const libzcash::SaplingExtendedSpendingKey &sk) const;
-    SpendingKeyAddResult operator()(const libzcash::InvalidEncoding& no) const;    
+    SpendingKeyAddResult operator()(const libzcash::InvalidEncoding& no) const;
 };
 
 

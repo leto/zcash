@@ -157,7 +157,7 @@ SaplingPaymentAddress CWallet::GenerateNewSaplingZKey()
     return addr;
 }
 
-// Add spending key to keystore 
+// Add spending key to keystore
 bool CWallet::AddSaplingZKey(
     const libzcash::SaplingExtendedSpendingKey &sk,
     const libzcash::SaplingPaymentAddress &defaultAddr)
@@ -167,7 +167,7 @@ bool CWallet::AddSaplingZKey(
     if (!CCryptoKeyStore::AddSaplingSpendingKey(sk, defaultAddr)) {
         return false;
     }
-    
+
     if (!fFileBacked) {
         return true;
     }
@@ -176,7 +176,7 @@ bool CWallet::AddSaplingZKey(
         auto ivk = sk.expsk.full_viewing_key().in_viewing_key();
         return CWalletDB(strWalletFile).WriteSaplingZKey(ivk, sk, mapSaplingZKeyMetadata[ivk]);
     }
-    
+
     return true;
 }
 
@@ -573,10 +573,10 @@ void CWallet::ChainTipAdded(const CBlockIndex *pindex,
     UpdateSaplingNullifierNoteMapForBlock(pblock);
 }
 
-void CWallet::ChainTip(const CBlockIndex *pindex, 
+void CWallet::ChainTip(const CBlockIndex *pindex,
                        const CBlock *pblock,
                        SproutMerkleTree sproutTree,
-                       SaplingMerkleTree saplingTree, 
+                       SaplingMerkleTree saplingTree,
                        bool added)
 {
     if (added) {
@@ -1207,7 +1207,7 @@ void DecrementNoteWitnesses(NoteDataMap& noteDataMap, int indexHeight, int64_t n
             if (nd->witnesses.size() > 0) {
                 nd->witnesses.pop_front();
             }
-            // indexHeight is the height of the block being removed, so 
+            // indexHeight is the height of the block being removed, so
             // the new witness cache height is one below it.
             nd->witnessHeight = indexHeight - 1;
         }
@@ -4500,7 +4500,7 @@ void CWallet::GetFilteredNotes(
 }
 
 /**
- * Find notes in the wallet filtered by payment addresses, min depth, max depth, 
+ * Find notes in the wallet filtered by payment addresses, min depth, max depth,
  * if the note is spent, if a spending key is required, and if the notes are locked.
  * These notes are decrypted and added to the output parameter vector, outEntries.
  */
@@ -4752,10 +4752,10 @@ SpendingKeyAddResult AddSpendingKeyToWallet::operator()(const libzcash::SaplingE
                 m_wallet->mapSaplingZKeyMetadata[ivk].seedFp = seedFp;
             }
             return KeyAdded;
-        }    
+        }
     }
 }
 
-SpendingKeyAddResult AddSpendingKeyToWallet::operator()(const libzcash::InvalidEncoding& no) const { 
+SpendingKeyAddResult AddSpendingKeyToWallet::operator()(const libzcash::InvalidEncoding& no) const {
     throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid spending key");
 }
