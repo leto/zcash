@@ -4547,6 +4547,10 @@ bool RewindBlockIndex(const CChainParams& params, bool& clearWitnessCaches)
         auto consensus = params.GetConsensus();
         bool fFlagSet = pindex->nStatus & BLOCK_ACTIVATES_UPGRADE;
         bool fFlagExpected = IsActivationHeightForAnyUpgrade(pindex->nHeight, consensus);
+        // LogPrintf("*** BLOCK_ACTIVATES_UPGRADE %b\n", fFlagSet);
+        // LogPrintf("*** IsActivationHeightForAnyUpgrade %b\n", fFlagExpected);
+        // LogPrintf("*** pindex->nCachedBranchId %i\n", pindex->nCachedBranchId);
+        // LogPrintf("*** CurrentEpochBranchId(pindex->nHeight, consensus) %d\n", CurrentEpochBranchId(pindex->nHeight, consensus));
         return fFlagSet == fFlagExpected &&
             pindex->nCachedBranchId &&
             *pindex->nCachedBranchId == CurrentEpochBranchId(pindex->nHeight, consensus);
@@ -4555,6 +4559,7 @@ bool RewindBlockIndex(const CChainParams& params, bool& clearWitnessCaches)
     int nHeight = 1;
     while (nHeight <= chainActive.Height()) {
         if (!sufficientlyValidated(chainActive[nHeight])) {
+            LogPrintf("** !sufficientlyValidated(chainActive[nHeight]) %b\n", !sufficientlyValidated(chainActive[nHeight]));
             break;
         }
         nHeight++;
