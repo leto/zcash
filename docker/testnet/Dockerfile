@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN git clone https://github.com/Arrowchain/arrow.git
 WORKDIR /arrow
-RUN git checkout AddressIndexing && \
+RUN git checkout arrow-1927 && \
   ./zcutil/fetch-params.sh
 
 ARG ARROW_VERSION=1.0.0-rc1
@@ -44,16 +44,13 @@ RUN chmod +x /arrow-bins/arrow-cli
 RUN ln -sf /arrow-bins/arrowd /usr/bin/arrowd
 RUN ln -sf /arrow-bins/arrow-cli /usr/bin/arrow-cli
 
-RUN mkdir -p /arrow-data
 RUN mkdir -p /arrow-conf
-
+COPY arrow.conf /arrow-conf/arrow.conf
 
 #PORT 7654 is P2P, 6543 is RPC
 EXPOSE 7654 6543
 
-COPY arrow.conf /arrow-conf/arrow.conf
-
-VOLUME /arrow-data
+VOLUME /root/.arrow
 
 # CMD tail -f /dev/null
 ENTRYPOINT ["arrowd", "-conf=/arrow-conf/arrow.conf"]
