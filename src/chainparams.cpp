@@ -129,14 +129,14 @@ public:
         nEquihashN = N;
         nEquihashK = K;
 
-        // genesis = CreateGenesisBlock(
-        //     1560781060,
-        //     uint256S("0000000000000000000000000000000000000000000000000000000000006234"),
-        //     ParseHex("03ceb7c390288385c7996e0573f3d34cb921fec64911d921eb3e2ae26d62589c20ce7338adc424b25ab9cb53ade809f92884080484078d9660bc4739725dd1b61d2224d428728f5fc3069931d3d29e2070633ca63c629bf53effbb510d6ab8d507f8e6e5"),
-        //     0x1f07ffff, 4, 0);
-        // consensus.hashGenesisBlock = genesis.GetHash();
-        // assert(consensus.hashGenesisBlock == uint256S("0x000471bdbe2d28ccb82073aa88d9d00c5bff93dc4eece523c903b64b42c6d328"));
-        // assert(genesis.hashMerkleRoot == uint256S("0x30befc2b1ce546fa84cc72a78515e3cd3cf13b2e27d035f83e0e13ae0271106c"));
+        genesis = CreateGenesisBlock(
+            1561343190,
+            uint256S("00000000000000000000000000000000000000000000000000000000000032aa"),
+            ParseHex("06c37bfa0f63922b75ae88ef848e9dec1f7ce1522fc54646bc38b723cb37d2d6e6a43a53298987419ebf62e6c5f1ebe2de9d1e5eb9c2b349ec730238bdd3c460f2efb5054a3b51cd415d765eed0b5d925669e1edd61be176ea3a36bf4fb3891367e77dfd0792159d75e31ae6436e05c993d5f29cd6a19257f6593115b01a8bc20f3937aae0909893f6f6f9c50e8bd6c2e4f2f1e3f44d0c15aeecabb56ee24477b8f54361c63da9ec6aacdab37481ca1c6daee8102734bae21b2d9d0292996bdbe31ca4bc5f272c3f08036b3b75c735899c1cbb4f02b098c6ff73fd63aea343d28316183bc8f438ca80538d919cc3968d5c6980b25c8455abacdb08e91213023f88cfdd521e1800f9deebf3e159f3298efd42821065e4b62dc48c5432dfbe6ad5194dcce1291d93dd0b92a713101a93d21010ddf6bcaf25f1e3b7a924222e0511b5ab8657ad21b0095c1bf3eecf2558bac022227703343c3df4ca9bd878011c572668ea349fb2089f249429e5bacf7a9073f45739fd75a52029684a209acc5c250dc019a226675526bc49d007b31e972c"),
+            0x1f07ffff, 4, 0);
+        consensus.hashGenesisBlock = genesis.GetHash();
+        assert(consensus.hashGenesisBlock == uint256S("0x0004a6c9f0b96fec1342e1a56e7ff2e5c3da3113cfc9c06c8e864f882844b5f3"));
+        assert(genesis.hashMerkleRoot == uint256S("0x46f48204b48b5e7622765ca81d97bad0bcb4b8d7b8e3b5388a84de3678e64ea1"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -173,15 +173,14 @@ public:
         fMineBlocksOnDemand = false;
         fTestnetToBeDeprecatedFieldRPC = false;
 
-        // checkpointData = (CCheckpointData) {
-        //     boost::assign::map_list_of
-        //     (0, consensus.hashGenesisBlock),
-        //     1559406329,     // * UNIX timestamp of last checkpoint block
-        //     1,        // * total number of transactions between genesis and last checkpoint
-        //                     //   (the tx=... number in the SetBestChain debug.log lines)
-        //     3840            // * estimated number of transactions per day after checkpoint
-        //                     //   total number of tx / (checkpoint block height / (24 * 24))
-        // };
+        checkpointData = (CCheckpointData) {
+            boost::assign::map_list_of
+            (0, consensus.hashGenesisBlock),
+            1561343190,  // * UNIX timestamp of last checkpoint block
+            1,       // * total number of transactions between genesis and last checkpoint
+                         //   (the tx=... number in the SetBestChain debug.log lines)
+            1          //   total number of tx / (checkpoint block height / (24 * 24))
+        };
 
         // Hardcoded fallback value for the Sprout shielded value pool balance
         // for nodes that have not reindexed since the introduction of monitoring
