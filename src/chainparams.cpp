@@ -60,7 +60,7 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
  */
 static CBlock CreateGenesisBlock(uint32_t nTime, const uint256& nNonce, const std::vector<unsigned char>& nSolution, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
-    const char* pszTimestamp = "Arrowc37b9b3c658734a2b7882d6047df89df40c40ff9bade789b906afdbbdef48118";
+    const char* pszTimestamp = "Arrowadbf633920c0fcb066cbfdb6fd64580beea19cdb7a5a2ca8683effecec09b258";
     const CScript genesisOutputScript = CScript() << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f") << OP_CHECKSIG;
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nSolution, nBits, nVersion, genesisReward);
 }
@@ -130,13 +130,13 @@ public:
         nEquihashK = K;
 
         genesis = CreateGenesisBlock(
-            1561343190,
-            uint256S("00000000000000000000000000000000000000000000000000000000000032aa"),
-            ParseHex("06c37bfa0f63922b75ae88ef848e9dec1f7ce1522fc54646bc38b723cb37d2d6e6a43a53298987419ebf62e6c5f1ebe2de9d1e5eb9c2b349ec730238bdd3c460f2efb5054a3b51cd415d765eed0b5d925669e1edd61be176ea3a36bf4fb3891367e77dfd0792159d75e31ae6436e05c993d5f29cd6a19257f6593115b01a8bc20f3937aae0909893f6f6f9c50e8bd6c2e4f2f1e3f44d0c15aeecabb56ee24477b8f54361c63da9ec6aacdab37481ca1c6daee8102734bae21b2d9d0292996bdbe31ca4bc5f272c3f08036b3b75c735899c1cbb4f02b098c6ff73fd63aea343d28316183bc8f438ca80538d919cc3968d5c6980b25c8455abacdb08e91213023f88cfdd521e1800f9deebf3e159f3298efd42821065e4b62dc48c5432dfbe6ad5194dcce1291d93dd0b92a713101a93d21010ddf6bcaf25f1e3b7a924222e0511b5ab8657ad21b0095c1bf3eecf2558bac022227703343c3df4ca9bd878011c572668ea349fb2089f249429e5bacf7a9073f45739fd75a52029684a209acc5c250dc019a226675526bc49d007b31e972c"),
+            1562519857,
+            uint256S("0000000000000000000000000000000000000000000000000000000000002c19"),
+            ParseHex("00b41c5d3fee273b40974b44c6e903ff3733ce087e7389a925154a9e6ed1bf9bd5baf69d29526c40d688bfb705b8d5bea9f70ca0c7beddece347305899eef338ad0a66764124bddfe4c71a0fdf9f79b1eed7cc0ad178fd1658e8a4157c5f1da36fcd6e28042b06dd75afcc11ee151f5443d5ddfc4a56adce87c78646c629cc1cfc48ba1de50a3c9f0176073003d24275c9c55ff0015c29b59a2776e50f3fe792ee77d57b6eccb4b9bf2f4ebdd5ebac3601c2a5a39952dda211958197b989bfb0d4b24cfdbffbc7ad025293dfb85adefce5b3764c3589541f92097f20bc5ba93e231ce7b08f4d8f8da56edd242c79668bd72803871bd5719d9a11264734bf1a9e8e059334ff41f6b8d12b7ac8a9decbc9b57d992a15bea49bb32aa59e59a4e4f399cf82470c95ae50fb8992f90c84d64a8e85036ae2530779791b994f78a16f10a16dc0564c1600fd49a9ec8790169bf19ab2b5248b11dd0663a1c9fc7d0c218726bfe406f69149bccebd63a22ebe169c320bebdf65d6f24502cbea7bd822ef2dd594a4d6cca0e675d3de88e9779c6eb1"),
             0x1f07ffff, 4, 0);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x0004a6c9f0b96fec1342e1a56e7ff2e5c3da3113cfc9c06c8e864f882844b5f3"));
-        assert(genesis.hashMerkleRoot == uint256S("0x46f48204b48b5e7622765ca81d97bad0bcb4b8d7b8e3b5388a84de3678e64ea1"));
+        assert(consensus.hashGenesisBlock == uint256S("0x00028de97cd7b8e1b90918186387c0e6b9f65ac433bdde036aa93e184593da4e"));
+        assert(genesis.hashMerkleRoot == uint256S("0x2318b72b4e35d86f0c66c8c956fe7c3ae1ef7c33b835c58fdd9a1ed5f2b4852a"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -176,7 +176,7 @@ public:
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
             (0, consensus.hashGenesisBlock),
-            1561343190,  // * UNIX timestamp of last checkpoint block
+            1562480347,  // * UNIX timestamp of last checkpoint block
             1,       // * total number of transactions between genesis and last checkpoint
                          //   (the tx=... number in the SetBestChain debug.log lines)
             1          //   total number of tx / (checkpoint block height / (24 * 24))
@@ -192,11 +192,15 @@ public:
 
         // Founders reward script expects a vector of 2-of-3 multisig addresses
         vFoundersRewardAddress = {
-            "awRcUwndjDSKavHrVsBAiQzHyeCXMhGuLUN", /* main-index: 0*/
-            "awDDfNed9So9PRFkjjZoKQKAAKPrYRWjnZM", /* main-index: 1*/
-            "awHxrq18TnMpDW6e7nSsPWTuYNcAk6crSrN", /* main-index: 2*/
-            "awH8dSB2UT5v2EXmQ8HHemGihVYkfA6as4y", /* main-index: 3*/
-};
+          "awGmPHrdDEoR94moWqgkCgoftqVnxmSU8TW", /* Founder 1 */
+          "awKh816Uu7SknBiRUqpEhAmzLgCfRMwToob", /* Founder 2 */
+          "awHTq3WV9jwa7GnwFUex29Do2dxNEkpHrR4", /* Founder 3 */
+          "aw9y6sA7TfnLfBcE7QdJED5jL4BRL7xnPi6", /* Founder 4 */
+          "aw3PJCcQPHKzYbVpVSc4ka4MnRqdDbmvvbL", /* Founder 5 */
+          "awLTtMyrwZXXZ592xJtmtDegCe56zxhMDAv", /* Founder 6 */
+          "aw8Rtid3iKpCxyXCJ9ugGGVpuuSr18qpR6d", /* Founder 7 */
+          "awDitPs5DiuGQo4Nzsws5Hk7ugX6YjQ52km", /* Founder 8 */
+        };
         assert(vFoundersRewardAddress.size() <= consensus.GetLastFoundersRewardBlockHeight());
     }
 };
@@ -256,13 +260,13 @@ public:
         nEquihashK = K;
 
         genesis = CreateGenesisBlock(
-            1561343190,
-            uint256S("00000000000000000000000000000000000000000000000000000000000032aa"),
-            ParseHex("06c37bfa0f63922b75ae88ef848e9dec1f7ce1522fc54646bc38b723cb37d2d6e6a43a53298987419ebf62e6c5f1ebe2de9d1e5eb9c2b349ec730238bdd3c460f2efb5054a3b51cd415d765eed0b5d925669e1edd61be176ea3a36bf4fb3891367e77dfd0792159d75e31ae6436e05c993d5f29cd6a19257f6593115b01a8bc20f3937aae0909893f6f6f9c50e8bd6c2e4f2f1e3f44d0c15aeecabb56ee24477b8f54361c63da9ec6aacdab37481ca1c6daee8102734bae21b2d9d0292996bdbe31ca4bc5f272c3f08036b3b75c735899c1cbb4f02b098c6ff73fd63aea343d28316183bc8f438ca80538d919cc3968d5c6980b25c8455abacdb08e91213023f88cfdd521e1800f9deebf3e159f3298efd42821065e4b62dc48c5432dfbe6ad5194dcce1291d93dd0b92a713101a93d21010ddf6bcaf25f1e3b7a924222e0511b5ab8657ad21b0095c1bf3eecf2558bac022227703343c3df4ca9bd878011c572668ea349fb2089f249429e5bacf7a9073f45739fd75a52029684a209acc5c250dc019a226675526bc49d007b31e972c"),
+            1562480347,
+            uint256S("00000000000000000000000000000000000000000000000000000000000018a3"),
+            ParseHex("007fc5f19e248165d64e1f01b0181a95fc0c51b0e8c1e91ed50aa0d10f1e26afe14bbf1a59f487fd2a8f290a063fe9d3f29c23f99f3d89550ce2edd4d817d96e763644c2e6c29d3d92d3a9253ad446060754193f7ddb79273332af9f2e6604301f961393029c36dbf1d953fd3ff9aab84629f90f3ee555d8ad4d9b377b16556928cb8b6c35fbbc2d5bd55756ff22480198cfa329374a031176582958c544bd5fae41d1c9037a511ec5d98931eb275733c6eac4ee174fad9db90e6a460a5a841840863b8d4b5169d605fea531f88659dae53be415c9719c16d094e6e326f5a4a3d51fe6b14d031f49022a5cb040356720a6d0de6561da09e24a1707abec0ded44e44fd1bec48cd15f4592ec6092a2746199aff21df66539820b3b579b9fee75976c8876d0da8309b97ddd6c6306e8239096bb02085e5b281110770d065ba4e5edb9bf67a5ae0d87663a99fda794f21b2d16e7af00a504f412353363e6b09c161259585187d76cc6ce7170219f588e4e4c5eed5ea1b1128c1fd0f89a3ea254e373d5852dc65e22776eac8a170ccf94e7f1"),
             0x1f07ffff, 4, 0);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x0004a6c9f0b96fec1342e1a56e7ff2e5c3da3113cfc9c06c8e864f882844b5f3"));
-        assert(genesis.hashMerkleRoot == uint256S("0x46f48204b48b5e7622765ca81d97bad0bcb4b8d7b8e3b5388a84de3678e64ea1"));
+        assert(consensus.hashGenesisBlock == uint256S("0x000546eeffe7cc9daa9e69a21d1b0ee50953748a4d788f690de9ecff4494b838"));
+        assert(genesis.hashMerkleRoot == uint256S("0x2318b72b4e35d86f0c66c8c956fe7c3ae1ef7c33b835c58fdd9a1ed5f2b4852a"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -301,7 +305,7 @@ public:
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
             (0, consensus.hashGenesisBlock),
-            1561343190,  // * UNIX timestamp of last checkpoint block
+            1562480347,  // * UNIX timestamp of last checkpoint block
             1,       // * total number of transactions between genesis and last checkpoint
                          //   (the tx=... number in the SetBestChain debug.log lines)
             1          //   total number of tx / (checkpoint block height / (24 * 24))
@@ -377,13 +381,13 @@ public:
         nEquihashK = K;
 
         genesis = CreateGenesisBlock(
-            1561343190,
-            uint256S("00000000000000000000000000000000000000000000000000000000000032aa"),
-            ParseHex("06c37bfa0f63922b75ae88ef848e9dec1f7ce1522fc54646bc38b723cb37d2d6e6a43a53298987419ebf62e6c5f1ebe2de9d1e5eb9c2b349ec730238bdd3c460f2efb5054a3b51cd415d765eed0b5d925669e1edd61be176ea3a36bf4fb3891367e77dfd0792159d75e31ae6436e05c993d5f29cd6a19257f6593115b01a8bc20f3937aae0909893f6f6f9c50e8bd6c2e4f2f1e3f44d0c15aeecabb56ee24477b8f54361c63da9ec6aacdab37481ca1c6daee8102734bae21b2d9d0292996bdbe31ca4bc5f272c3f08036b3b75c735899c1cbb4f02b098c6ff73fd63aea343d28316183bc8f438ca80538d919cc3968d5c6980b25c8455abacdb08e91213023f88cfdd521e1800f9deebf3e159f3298efd42821065e4b62dc48c5432dfbe6ad5194dcce1291d93dd0b92a713101a93d21010ddf6bcaf25f1e3b7a924222e0511b5ab8657ad21b0095c1bf3eecf2558bac022227703343c3df4ca9bd878011c572668ea349fb2089f249429e5bacf7a9073f45739fd75a52029684a209acc5c250dc019a226675526bc49d007b31e972c"),
+            1562480347,
+            uint256S("00000000000000000000000000000000000000000000000000000000000018a3"),
+            ParseHex("007fc5f19e248165d64e1f01b0181a95fc0c51b0e8c1e91ed50aa0d10f1e26afe14bbf1a59f487fd2a8f290a063fe9d3f29c23f99f3d89550ce2edd4d817d96e763644c2e6c29d3d92d3a9253ad446060754193f7ddb79273332af9f2e6604301f961393029c36dbf1d953fd3ff9aab84629f90f3ee555d8ad4d9b377b16556928cb8b6c35fbbc2d5bd55756ff22480198cfa329374a031176582958c544bd5fae41d1c9037a511ec5d98931eb275733c6eac4ee174fad9db90e6a460a5a841840863b8d4b5169d605fea531f88659dae53be415c9719c16d094e6e326f5a4a3d51fe6b14d031f49022a5cb040356720a6d0de6561da09e24a1707abec0ded44e44fd1bec48cd15f4592ec6092a2746199aff21df66539820b3b579b9fee75976c8876d0da8309b97ddd6c6306e8239096bb02085e5b281110770d065ba4e5edb9bf67a5ae0d87663a99fda794f21b2d16e7af00a504f412353363e6b09c161259585187d76cc6ce7170219f588e4e4c5eed5ea1b1128c1fd0f89a3ea254e373d5852dc65e22776eac8a170ccf94e7f1"),
             0x1f07ffff, 4, 0);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x0004a6c9f0b96fec1342e1a56e7ff2e5c3da3113cfc9c06c8e864f882844b5f3"));
-        assert(genesis.hashMerkleRoot == uint256S("0x46f48204b48b5e7622765ca81d97bad0bcb4b8d7b8e3b5388a84de3678e64ea1"));
+        assert(consensus.hashGenesisBlock == uint256S("0x000546eeffe7cc9daa9e69a21d1b0ee50953748a4d788f690de9ecff4494b838"));
+        assert(genesis.hashMerkleRoot == uint256S("0x2318b72b4e35d86f0c66c8c956fe7c3ae1ef7c33b835c58fdd9a1ed5f2b4852a"));
 
         vFixedSeeds.clear(); //! Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();  //! Regtest mode doesn't have any DNS seeds.
