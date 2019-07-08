@@ -99,15 +99,17 @@ public:
         consensus.nPowAllowMinDifficultyBlocksAfterHeight = boost::none;
         consensus.vUpgrades[Consensus::BASE_SPROUT].nProtocolVersion = 170002;
         consensus.vUpgrades[Consensus::BASE_SPROUT].nActivationHeight =
-            Consensus::NetworkUpgrade::ALWAYS_ACTIVE;
+            Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
         consensus.vUpgrades[Consensus::UPGRADE_TESTDUMMY].nProtocolVersion = 170002;
         consensus.vUpgrades[Consensus::UPGRADE_TESTDUMMY].nActivationHeight =
             Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
-        consensus.vUpgrades[Consensus::UPGRADE_OVERWINTER].nProtocolVersion = 170005;
-        consensus.vUpgrades[Consensus::UPGRADE_OVERWINTER].nActivationHeight = 2;
+        consensus.vUpgrades[Consensus::UPGRADE_OVERWINTER].nProtocolVersion = 170003;
+        consensus.vUpgrades[Consensus::UPGRADE_OVERWINTER].nActivationHeight =
+            Consensus::NetworkUpgrade::ALWAYS_ACTIVE;
         consensus.vUpgrades[Consensus::UPGRADE_SAPLING].nProtocolVersion = 170007;
-        consensus.vUpgrades[Consensus::UPGRADE_SAPLING].nActivationHeight = 5;
-        consensus.vUpgrades[Consensus::UPGRADE_BLOSSOM].nProtocolVersion = 170009;
+        consensus.vUpgrades[Consensus::UPGRADE_SAPLING].nActivationHeight =
+            Consensus::NetworkUpgrade::ALWAYS_ACTIVE;
+        consensus.vUpgrades[Consensus::UPGRADE_BLOSSOM].nProtocolVersion = 170008;
         consensus.vUpgrades[Consensus::UPGRADE_BLOSSOM].nActivationHeight =
             Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
 
