@@ -2,10 +2,11 @@
 *.deb
 *.exe
 src/bitcoin
-src/zcashd
-src/zcash-cli
+src/arrowd
+src/arrow-cli
+src/arrow-gtest
 src/zcash-gtest
-src/zcash-tx
+src/arrow-tx
 src/test/test_bitcoin
 
 *zcashTest.pk
