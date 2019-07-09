@@ -3649,7 +3649,7 @@ UniValue z_sendmany(const UniValue& params, bool fHelp)
             "1. \"fromaddress\"         (string, required) The taddr or zaddr to send the funds from.\n"
             "2. \"amounts\"             (array, required) An array of json objects representing the amounts to send.\n"
             "    [{\n"
-            "      \"address\":address  (string, required) The address is a taddr or zaddr\n"
+            "      \"address\":address  (string, required) The address is a zaddr\n"
             "      \"amount\":amount    (numeric, required) The numeric amount in " + CURRENCY_UNIT + " is the value\n"
             "      \"memo\":memo        (string, optional) If the address is a zaddr, raw data represented in hexadecimal string format\n"
             "    }, ... ]\n"
