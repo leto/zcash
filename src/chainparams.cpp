@@ -142,9 +142,8 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        // vSeeds.push_back(CDNSSeedData("z.cash", "dnsseed.z.cash")); // Zcash
-        // vSeeds.push_back(CDNSSeedData("str4d.xyz", "dnsseed.str4d.xyz")); // @str4d
-        // vSeeds.push_back(CDNSSeedData("znodes.org", "dnsseed.znodes.org")); // @bitcartel
+        vSeeds.push_back(CDNSSeedData("mainnet1", "18.204.209.173")); // Arrow
+        vSeeds.push_back(CDNSSeedData("mainnet2", "52.90.76.26")); // Arrow
 
         // guarantees the first 2 characters, when base58 encoded, are "ar"
         base58Prefixes[PUBKEY_ADDRESS]     = {0x13,0x0f};
