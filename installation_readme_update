@@ -26,8 +26,7 @@ sudo dnf install git pkgconfig automake autoconf ncurses-devel python python-zmq
 ```
 1. git clone https://github.com/Arrowchain/arrow.git arrow
 2. cd arrow
-3. git checkout arrow-1927
-4. ./zcutil/build.sh -j$(nproc)
+3. ./zcutil/build.sh -j$(nproc)
 ```
 
 ### **Create config file**
@@ -38,11 +37,9 @@ sudo dnf install git pkgconfig automake autoconf ncurses-devel python python-zmq
 4. echo "rpcallowip=127.0.0.1" >> ~/.arrow/arrow.conf
 5. echo "addnode=110.185.105.21:7654" >> ~/.arrow/arrow.conf
 6. echo "addnode=18.204.209.173:7654" >> ~/.arrow/arrow.conf
-7. echo "addnode=110.185.105.21:7654" >> ~/.arrow/arrow.conf
-8. echo "addnode=195.10.210.35:7654" >> ~/.arrow/arrow.conf
-9. echo "addnode=80.11.223.136:7654" >> ~/.arrow/arrow.conf
-10. echo "addnode=52.90.76.26:7654" >> ~/.arrow/arrow.conf
-11. echo "addnode=52.90.76.26:7654" >> ~/.arrow/arrow.conf
+7. echo "addnode=195.10.210.35:7654" >> ~/.arrow/arrow.conf
+8. echo "addnode=80.11.223.136:7654" >> ~/.arrow/arrow.conf
+9. echo "addnode=52.90.76.26:7654" >> ~/.arrow/arrow.conf
 ```
 
 ### **Fetch params**
@@ -77,8 +74,7 @@ sudo dnf install git pkgconfig automake autoconf ncurses-devel python python-zmq
 ```
 1. git clone https://github.com/Arrowchain/arrow.git arrow
 2. cd arrow
-3. git checkout arrow-1927
-4. ./zcutil/build.sh -j$(sysctl -n hw.ncpu)
+3. ./zcutil/build.sh -j$(sysctl -n hw.ncpu)
 
 ```
 ## **Fetch params**
@@ -95,11 +91,9 @@ sudo dnf install git pkgconfig automake autoconf ncurses-devel python python-zmq
 4. echo "rpcallowip=127.0.0.1" >> ~/Library/Application Support/arrow/arrow.conf
 5. echo "addnode=110.185.105.21:7654" >> ~/Library/Application Support/arrow/arrow.conf
 6. echo "addnode=18.204.209.173:7654" >> ~/Library/Application Support/arrow/arrow.conf
-7. echo "addnode=110.185.105.21:7654" >> ~/Library/Application Support/arrow/arrow.conf
-8. echo "addnode=195.10.210.35:7654" >> ~/Library/Application Support/arrow/arrow.conf
-9. echo "addnode=80.11.223.136:7654" >> ~/Library/Application Support/arrow/arrow.conf
-10. echo "addnode=52.90.76.26:7654" >> ~/Library/Application Support/arrow/arrow.conf
-11. echo "addnode=52.90.76.26:7654" >> ~/Library/Application Support/arrow/arrow.conf
+7. echo "addnode=195.10.210.35:7654" >> ~/Library/Application Support/arrow/arrow.conf
+8. echo "addnode=80.11.223.136:7654" >> ~/Library/Application Support/arrow/arrow.conf
+9. echo "addnode=52.90.76.26:7654" >> ~/Library/Application Support/arrow/arrow.conf
 ```
 ### **Run arrowd**
 
