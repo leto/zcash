@@ -4298,7 +4298,7 @@ UniValue z_mergetoaddress(const UniValue& params, bool fHelp)
             "      \"address\"          (string) Can be a taddr or a zaddr\n"
             "      ,...\n"
             "    ]\n"
-            "2. \"toaddress\"           (string, required) The taddr or zaddr to send the funds to.\n"
+            "2. \"toaddress\"           (string, required) The zaddr to send the funds to.\n"
             "3. fee                   (numeric, optional, default="
             + strprintf("%s", FormatMoney(MERGE_TO_ADDRESS_OPERATION_DEFAULT_MINERS_FEE)) + ") The fee amount to attach to this transaction.\n"
             "4. transparent_limit     (numeric, optional, default="
@@ -4474,48 +4474,7 @@ UniValue z_mergetoaddress(const UniValue& params, bool fHelp)
     }
 
     if (useAnyUTXO || taddrs.size() > 0) {
-        // Get available utxos
-        vector<COutput> vecOutputs;
-        pwalletMain->AvailableCoins(vecOutputs, true, NULL, false, false);
-
-        // Find unspent utxos and update estimated size
-        for (const COutput& out : vecOutputs) {
-            if (!out.fSpendable) {
-                continue;
-            }
-
-            CScript scriptPubKey = out.tx->vout[out.i].scriptPubKey;
-
-            CTxDestination address;
-            if (!ExtractDestination(scriptPubKey, address)) {
-                continue;
-            }
-            // If taddr is not wildcard "*", filter utxos
-            if (taddrs.size() > 0 && !taddrs.count(address)) {
-                continue;
-            }
-
-            utxoCounter++;
-            CAmount nValue = out.tx->vout[out.i].nValue;
-
-            if (!maxedOutUTXOsFlag) {
-                size_t increase = (boost::get<CScriptID>(&address) != nullptr) ? CTXIN_SPEND_P2SH_SIZE : CTXIN_SPEND_DUST_SIZE;
-                if (estimatedTxSize + increase >= max_tx_size ||
-                    (mempoolLimit > 0 && utxoCounter > mempoolLimit))
-                {
-                    maxedOutUTXOsFlag = true;
-                } else {
-                    estimatedTxSize += increase;
-                    COutPoint utxo(out.tx->GetHash(), out.i);
-                    utxoInputs.emplace_back(utxo, nValue, scriptPubKey);
-                    mergedUTXOValue += nValue;
-                }
-            }
-
-            if (maxedOutUTXOsFlag) {
-                remainingUTXOValue += nValue;
-            }
-        }
+        throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, can't send to transparent addresses");
     }
 
     if (useAnySprout || useAnySapling || zaddrs.size() > 0) {
