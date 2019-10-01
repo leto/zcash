@@ -251,7 +251,8 @@ public:
         consensus.vUpgrades[Consensus::UPGRADE_SAPLING].nActivationHeight =
             Consensus::NetworkUpgrade::ALWAYS_ACTIVE;
         consensus.vUpgrades[Consensus::UPGRADE_BLOSSOM].nProtocolVersion = 170008;
-        consensus.vUpgrades[Consensus::UPGRADE_BLOSSOM].nActivationHeight = 584000;
+        consensus.vUpgrades[Consensus::UPGRADE_BLOSSOM].nActivationHeight =
+            Consensus::NetworkUpgrade::NO_ACTIVATION_HEIGHT;
 
         // The best chain should have at least this much work.
         consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000000001");
