@@ -956,7 +956,7 @@ bool ContextualCheckTransaction(
     // Rules that apply to Overwinter or later:
     if (overwinterActive) {
         // Reject transactions intended for Sprout
-        if (!tx.fOverwintered) {
+        if (!tx.fOverwintered && nHeight > 0) {
             return state.DoS(dosLevel, error("ContextualCheckTransaction: overwinter is active"),
                             REJECT_INVALID, "tx-overwinter-active");
         }
