@@ -3759,20 +3759,6 @@ bool FindBlockPos(CValidationState &state, CDiskBlockPos &pos, unsigned int nAdd
         } else {
           return state.Error("out of disk space");
         }
-        // if (nNewChunks > nOldChunks) {
-        //     if (fPruneMode)
-        //         fCheckForPruning = true;
-        //     if (CheckDiskSpace(nNewChunks * BLOCKFILE_CHUNK_SIZE - pos.nPos)) {
-        //         FILE *file = OpenBlockFile(pos);
-        //         if (file) {
-        //             LogPrintf("Pre-allocating up to position 0x%x in blk%05u.dat\n", nNewChunks * BLOCKFILE_CHUNK_SIZE, pos.nFile);
-        //             AllocateFileRange(file, pos.nPos, nNewChunks * BLOCKFILE_CHUNK_SIZE - pos.nPos);
-        //             fclose(file);
-        //         }
-        //     }
-        //     else
-        //         return state.Error("out of disk space");
-        // }
     }
 
     setDirtyFileInfo.insert(nFile);
@@ -3797,20 +3783,6 @@ bool FindUndoPos(CValidationState &state, int nFile, CDiskBlockPos &pos, unsigne
     } else {
       return state.Error("out of disk space");
     }
-    // if (nNewChunks > nOldChunks) {
-    //     if (fPruneMode)
-    //         fCheckForPruning = true;
-    //     if (CheckDiskSpace(nNewChunks * UNDOFILE_CHUNK_SIZE - pos.nPos)) {
-    //         FILE *file = OpenUndoFile(pos);
-    //         if (file) {
-    //             LogPrintf("Pre-allocating up to position 0x%x in rev%05u.dat\n", nNewChunks * UNDOFILE_CHUNK_SIZE, pos.nFile);
-    //             AllocateFileRange(file, pos.nPos, nNewChunks * UNDOFILE_CHUNK_SIZE - pos.nPos);
-    //             fclose(file);
-    //         }
-    //     }
-    //     else
-    //         return state.Error("out of disk space");
-    // }
 
     return true;
 }
