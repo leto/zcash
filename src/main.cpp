@@ -3698,6 +3698,25 @@ bool ReceivedBlockTransactions(
     return true;
 }
 
+bool AllocateFiles(unsigned int nNewChunks, unsigned int nOldChunks, CDiskBlockPos &pos)
+{
+  if (nNewChunks > nOldChunks) {
+      if (fPruneMode)
+          fCheckForPruning = true;
+      if (CheckDiskSpace(nNewChunks * UNDOFILE_CHUNK_SIZE - pos.nPos)) {
+          FILE *file = OpenUndoFile(pos);
+          if (file) {
+              LogPrintf("Pre-allocating up to position 0x%x in rev%05u.dat\n", nNewChunks * UNDOFILE_CHUNK_SIZE, pos.nFile);
+              AllocateFileRange(file, pos.nPos, nNewChunks * UNDOFILE_CHUNK_SIZE - pos.nPos);
+              fclose(file);
+          }
+      }
+      else
+          return false;
+  }
+  return true;
+}
+
 bool FindBlockPos(CValidationState &state, CDiskBlockPos &pos, unsigned int nAddSize, unsigned int nHeight, uint64_t nTime, bool fKnown = false)
 {
     LOCK(cs_LastBlockFile);
@@ -3735,20 +3754,26 @@ bool FindBlockPos(CValidationState &state, CDiskBlockPos &pos, unsigned int nAdd
     if (!fKnown) {
         unsigned int nOldChunks = (pos.nPos + BLOCKFILE_CHUNK_SIZE - 1) / BLOCKFILE_CHUNK_SIZE;
         unsigned int nNewChunks = (vinfoBlockFile[nFile].nSize + BLOCKFILE_CHUNK_SIZE - 1) / BLOCKFILE_CHUNK_SIZE;
-        if (nNewChunks > nOldChunks) {
-            if (fPruneMode)
-                fCheckForPruning = true;
-            if (CheckDiskSpace(nNewChunks * BLOCKFILE_CHUNK_SIZE - pos.nPos)) {
-                FILE *file = OpenBlockFile(pos);
-                if (file) {
-                    LogPrintf("Pre-allocating up to position 0x%x in blk%05u.dat\n", nNewChunks * BLOCKFILE_CHUNK_SIZE, pos.nFile);
-                    AllocateFileRange(file, pos.nPos, nNewChunks * BLOCKFILE_CHUNK_SIZE - pos.nPos);
-                    fclose(file);
-                }
-            }
-            else
-                return state.Error("out of disk space");
+        LogPrintf("Starting FindBlockPos file allocation\n");
+        if (AllocateFiles(nNewChunks, nOldChunks, pos)) {
+
+        } else {
+          return state.Error("out of disk space");
         }
+        // if (nNewChunks > nOldChunks) {
+        //     if (fPruneMode)
+        //         fCheckForPruning = true;
+        //     if (CheckDiskSpace(nNewChunks * BLOCKFILE_CHUNK_SIZE - pos.nPos)) {
+        //         FILE *file = OpenBlockFile(pos);
+        //         if (file) {
+        //             LogPrintf("Pre-allocating up to position 0x%x in blk%05u.dat\n", nNewChunks * BLOCKFILE_CHUNK_SIZE, pos.nFile);
+        //             AllocateFileRange(file, pos.nPos, nNewChunks * BLOCKFILE_CHUNK_SIZE - pos.nPos);
+        //             fclose(file);
+        //         }
+        //     }
+        //     else
+        //         return state.Error("out of disk space");
+        // }
     }
 
     setDirtyFileInfo.insert(nFile);
@@ -3768,20 +3793,26 @@ bool FindUndoPos(CValidationState &state, int nFile, CDiskBlockPos &pos, unsigne
 
     unsigned int nOldChunks = (pos.nPos + UNDOFILE_CHUNK_SIZE - 1) / UNDOFILE_CHUNK_SIZE;
     unsigned int nNewChunks = (nNewSize + UNDOFILE_CHUNK_SIZE - 1) / UNDOFILE_CHUNK_SIZE;
-    if (nNewChunks > nOldChunks) {
-        if (fPruneMode)
-            fCheckForPruning = true;
-        if (CheckDiskSpace(nNewChunks * UNDOFILE_CHUNK_SIZE - pos.nPos)) {
-            FILE *file = OpenUndoFile(pos);
-            if (file) {
-                LogPrintf("Pre-allocating up to position 0x%x in rev%05u.dat\n", nNewChunks * UNDOFILE_CHUNK_SIZE, pos.nFile);
-                AllocateFileRange(file, pos.nPos, nNewChunks * UNDOFILE_CHUNK_SIZE - pos.nPos);
-                fclose(file);
-            }
-        }
-        else
-            return state.Error("out of disk space");
+    LogPrintf("Starting FindUndoPos file allocation\n");
+    if (AllocateFiles(nNewChunks, nOldChunks, pos)) {
+
+    } else {
+      return state.Error("out of disk space");
     }
+    // if (nNewChunks > nOldChunks) {
+    //     if (fPruneMode)
+    //         fCheckForPruning = true;
+    //     if (CheckDiskSpace(nNewChunks * UNDOFILE_CHUNK_SIZE - pos.nPos)) {
+    //         FILE *file = OpenUndoFile(pos);
+    //         if (file) {
+    //             LogPrintf("Pre-allocating up to position 0x%x in rev%05u.dat\n", nNewChunks * UNDOFILE_CHUNK_SIZE, pos.nFile);
+    //             AllocateFileRange(file, pos.nPos, nNewChunks * UNDOFILE_CHUNK_SIZE - pos.nPos);
+    //             fclose(file);
+    //         }
+    //     }
+    //     else
+    //         return state.Error("out of disk space");
+    // }
 
     return true;
 }
