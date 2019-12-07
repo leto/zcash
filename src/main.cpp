@@ -3754,9 +3754,7 @@ bool FindBlockPos(CValidationState &state, CDiskBlockPos &pos, unsigned int nAdd
     if (!fKnown) {
         unsigned int nOldChunks = (pos.nPos + BLOCKFILE_CHUNK_SIZE - 1) / BLOCKFILE_CHUNK_SIZE;
         unsigned int nNewChunks = (vinfoBlockFile[nFile].nSize + BLOCKFILE_CHUNK_SIZE - 1) / BLOCKFILE_CHUNK_SIZE;
-        if (AllocateFiles(nNewChunks, nOldChunks, BLOCKFILE_CHUNK_SIZE, pos)) {
-
-        } else {
+        if (!AllocateFiles(nNewChunks, nOldChunks, BLOCKFILE_CHUNK_SIZE, pos)) {
           return state.Error("out of disk space");
         }
     }
@@ -3778,9 +3776,7 @@ bool FindUndoPos(CValidationState &state, int nFile, CDiskBlockPos &pos, unsigne
 
     unsigned int nOldChunks = (pos.nPos + UNDOFILE_CHUNK_SIZE - 1) / UNDOFILE_CHUNK_SIZE;
     unsigned int nNewChunks = (nNewSize + UNDOFILE_CHUNK_SIZE - 1) / UNDOFILE_CHUNK_SIZE;
-    if (AllocateFiles(nNewChunks, nOldChunks, UNDOFILE_CHUNK_SIZE, pos)) {
-
-    } else {
+    if (!AllocateFiles(nNewChunks, nOldChunks, UNDOFILE_CHUNK_SIZE, pos)) {
       return state.Error("out of disk space");
     }
 
