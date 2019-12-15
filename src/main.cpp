@@ -901,7 +901,7 @@ bool ContextualCheckTransaction(
     bool isSprout = !overwinterActive;
 
     //Prevent transfer to transparent address - Arrow Consensus rule
-    if (!tx.IsCoinBase() && !tx.vout.empty()) {
+    if (!tx.IsCoinBase() && !tx.vout.empty() && nHeight > chainParams.rewardSteps[0].nHeight) {
         return state.DoS(100, error("ContextualCheckTransaction(): transparent destinations not allowed"),
                         REJECT_INVALID, "transparent-destinations-not-allowed");
     }
