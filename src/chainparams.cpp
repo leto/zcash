@@ -104,7 +104,7 @@ public:
         consensus.nPostBlossomPowTargetSpacing = 45;
         // 174720 blocks/quarter
         consensus.rewardSteps = {
-          {int64_t(174720 * 1), 0}
+          {int64_t(174720 * 1), 0},
           {int64_t(174720 * 2), 15},
           {int64_t(174720 * 3), 5},
           {int64_t(174720 * 4), 5},
