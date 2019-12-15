@@ -900,6 +900,18 @@ bool ContextualCheckTransaction(
     bool saplingActive = chainparams.GetConsensus().NetworkUpgradeActive(nHeight, Consensus::UPGRADE_SAPLING);
     bool isSprout = !overwinterActive;
 
+    //Prevent transfer to transparent address - Arrow Consensus rule
+    if (!tx.IsCoinBase() && !tx.vout.empty()) {
+        return state.DoS(100, error("ContextualCheckTransaction(): transparent destinations not allowed"),
+                        REJECT_INVALID, "transparent-destinations-not-allowed");
+    }
+
+    //Prevent all sprout transactions - Arrow Consensus rule
+    if (!tx.vJoinSplit.empty()) {
+        return state.DoS(100, error("ContextualCheckTransaction(): sprout transaction not allowed"),
+                        REJECT_INVALID, "sprout-transaction-not-allowed");
+    }
+
     // If Sprout rules apply, reject transactions which are intended for Overwinter and beyond
     if (isSprout && tx.fOverwintered) {
         return state.DoS(isInitBlockDownload(chainparams) ? 0 : dosLevel,
@@ -1115,6 +1127,19 @@ bool CheckTransactionWithoutProofVerification(const CTransaction& tx, CValidatio
      *        0 <= tx.nVersion < OVERWINTER_MIN_TX_VERSION
      *        OVERWINTER_MAX_TX_VERSION < tx.nVersion <= INT32_MAX
      */
+     //Prevent transfer to transparent address - Arrow Consensus rule
+    if (!tx.IsCoinBase() && !tx.vout.empty()) {
+       return state.DoS(100, error("CheckTransaction(): transparent destinations not allowed"),
+                       REJECT_INVALID, "transparent-destinations-not-allowed");
+    }
+
+    //Prevent all sprout transactions - Arrow Consensus rule
+    if (!tx.vJoinSplit.empty()) {
+        return state.DoS(100, error("CheckTransaction(): sprout transaction not allowed"),
+                        REJECT_INVALID, "sprout-transaction-not-allowed");
+    }
+
+
     if (!tx.fOverwintered && tx.nVersion < SPROUT_MIN_TX_VERSION) {
         return state.DoS(100, error("CheckTransaction(): version too low"),
                          REJECT_INVALID, "bad-txns-version-too-low");
