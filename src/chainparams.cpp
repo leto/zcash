@@ -553,15 +553,17 @@ std::string CChainParams::GetFoundersRewardAddressAtHeight(int nHeight) const {
     i = nHeight % (int)mod;
   }
   std::string addr = vFoundersRewardAddress[i];
+  LogPrintf("initial address: %s, index: %d\n", addr, i);
   // replace any addresses that need to be replaced
   if (nHeight > vFoundersRewardReplacementAddress[0].nHeight) {
     for (unsigned int j = 0; j < vFoundersRewardReplacementAddress.size(); j++) {
+      LogPrintf("checking: %s, index: %d\n", vFoundersRewardReplacementAddress[j].address, vFoundersRewardReplacementAddress[j].index);
       if (
         (nHeight > vFoundersRewardReplacementAddress[j].nHeight) &&
         (i == vFoundersRewardReplacementAddress[j].index)
       ) {
-        if (i > vFoundersRewardReplacementAddress.size() -1) {
-          LogPrintf("GetFoundersRewardAddressAtHeight: replacement address index out of bounds");
+        if (j > vFoundersRewardReplacementAddress.size() -1) {
+          LogPrintf("GetFoundersRewardAddressAtHeight: replacement address index out of bounds\n");
           return "";
         }
         LogPrintf("replacement address: %s\n", vFoundersRewardReplacementAddress[j].address);
