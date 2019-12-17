@@ -554,14 +554,22 @@ std::string CChainParams::GetFoundersRewardAddressAtHeight(int nHeight) const {
   }
   std::string addr = vFoundersRewardAddress[i];
   // replace any addresses that need to be replaced
-  for (int j = 0; j < vFoundersRewardReplacementAddress.size(); j++) {
-    if (
-      i == vFoundersRewardReplacementAddress[j].index &&
-      nHeight > vFoundersRewardReplacementAddress[j].nHeight
-    ) {
-      addr = vFoundersRewardReplacementAddress[j].address;
+  if (nHeight > vFoundersRewardReplacementAddress[0].nHeight) {
+    for (unsigned int j = 0; j < vFoundersRewardReplacementAddress.size(); j++) {
+      if (
+        (nHeight > vFoundersRewardReplacementAddress[j].nHeight) &&
+        (i == vFoundersRewardReplacementAddress[j].index)
+      ) {
+        if (i > vFoundersRewardReplacementAddress.size() -1) {
+          LogPrintf("GetFoundersRewardAddressAtHeight: replacement address index out of bounds");
+          return "";
+        }
+        LogPrintf("replacement address: %s\n", vFoundersRewardReplacementAddress[j].address);
+        addr = vFoundersRewardReplacementAddress[j].address;
+      }
     }
   }
+
   return addr;
 }
 
@@ -580,6 +588,7 @@ CScript CChainParams::GetFoundersRewardScriptAtHeight(int nHeight) const {
 
 std::string CChainParams::GetFoundersRewardAddressAtIndex(int i) const {
     assert(i >= 0 && i < vFoundersRewardAddress.size());
+
     return vFoundersRewardAddress[i];
 }
 
