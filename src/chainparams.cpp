@@ -109,7 +109,8 @@ public:
           {int64_t(174720 * 3), 5},
           {int64_t(174720 * 4), 5},
           {int64_t(174720 * 5), 5},
-          {int64_t(174720 * 6), 5}
+          {int64_t(174720 * 6), 5},
+          {int64_t(174720 * 7), 5}
         };
         consensus.nPowAllowMinDifficultyBlocksAfterHeight = boost::none;
         consensus.vUpgrades[Consensus::BASE_SPROUT].nProtocolVersion = 170002;
