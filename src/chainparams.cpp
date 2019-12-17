@@ -214,6 +214,11 @@ public:
           "aw8Rtid3iKpCxyXCJ9ugGGVpuuSr18qpR6d", /* Founder 7 */
           "awDitPs5DiuGQo4Nzsws5Hk7ugX6YjQ52km", /* Founder 8 */
         };
+
+        vFoundersRewardReplacementAddress = {
+          {"aw8MnQYsjxnfevUQKuGYhteZ1WoGWsk3VkA", (174720 * 2), 4}
+        };
+
         assert(vFoundersRewardAddress.size() <= consensus.GetLastFoundersRewardBlockHeight());
     }
 };
@@ -249,7 +254,17 @@ public:
         consensus.rewardSteps = {
           {int64_t(1600), 5},
           {int64_t(1700), 5},
-          {int64_t(1800), 5}
+          {int64_t(1800), 5},
+          {int64_t(4000), 1},
+          {int64_t(8000), 1},
+          {int64_t(12000), 1},
+          {int64_t(16000), 1},
+          {int64_t(20000), 1},
+          {int64_t(24000), 1},
+          {int64_t(28000), 1},
+          {int64_t(32000), 1},
+          {int64_t(36000), 1},
+          {int64_t(40000), 1}
         };
         consensus.nPowAllowMinDifficultyBlocksAfterHeight = 299187;
         consensus.vUpgrades[Consensus::BASE_SPROUT].nProtocolVersion = 170002;
@@ -342,7 +357,10 @@ public:
         // Founders reward script expects a vector of 2-of-3 multisig addresses
         vFoundersRewardAddress = {
             "t2EwvMEauft1w621d7cwEUZyhR2Qg6hC69j", "t2Cz8nFidjJhMqoWzEawFBtjQBH3CAGASfn", "t2BKkVteoxfy1hHzEfs7Kqz4jUg68XkYjeG", "t2BnomTFHZ72LWBykWzCEFExEJecF1Por5j",
-            };
+        };
+        vFoundersRewardReplacementAddress = {
+          {"t2QpsQKSEzr39jGT2Kqy9kZrSTJs4rp16tg", (3700), 1}
+        };
         assert(vFoundersRewardAddress.size() <= consensus.GetLastFoundersRewardBlockHeight());
     }
 };
@@ -453,6 +471,9 @@ public:
 
         // Founders reward script expects a vector of 2-of-3 multisig addresses
         vFoundersRewardAddress = { "t2FwcEhFdNXuFMv1tcYwaBJtYVtMj8b1uTg" };
+        vFoundersRewardReplacementAddress = {
+          {"aw8MnQYsjxnfevUQKuGYhteZ1WoGWsk3VkA", (10000), 0}
+        };
         assert(vFoundersRewardAddress.size() <= consensus.GetLastFoundersRewardBlockHeight());
     }
 
@@ -528,11 +549,20 @@ std::string CChainParams::GetFoundersRewardAddressAtHeight(int nHeight) const {
   assert(nHeight > 0 && nHeight <= maxHeight);
   int i = nHeight;
   if (nHeight >= vFoundersRewardAddress.size()) {
-
     double mod = nHeight / vFoundersRewardAddress.size();
     i = nHeight % (int)mod;
   }
-  return vFoundersRewardAddress[i];
+  std::string addr = vFoundersRewardAddress[i];
+  // replace any addresses that need to be replaced
+  for (int j = 0; j < vFoundersRewardReplacementAddress.size(); j++) {
+    if (
+      i == vFoundersRewardReplacementAddress[j].index &&
+      nHeight > vFoundersRewardReplacementAddress[j].nHeight
+    ) {
+      addr = vFoundersRewardReplacementAddress[j].address;
+    }
+  }
+  return addr;
 }
 
 // Block height must be >0 and <=last founders reward block height

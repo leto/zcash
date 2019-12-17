@@ -1128,7 +1128,7 @@ bool CheckTransactionWithoutProofVerification(const CTransaction& tx, CValidatio
      *        OVERWINTER_MAX_TX_VERSION < tx.nVersion <= INT32_MAX
      */
      //Prevent transfer to transparent address - Arrow Consensus rule
-    if (!tx.IsCoinBase() && !tx.vout.empty()) {
+    if (!tx.IsCoinBase() && !tx.vout.empty() && chainActive.Height() > 174720) {
        return state.DoS(100, error("CheckTransaction(): transparent destinations not allowed"),
                        REJECT_INVALID, "transparent-destinations-not-allowed");
     }
