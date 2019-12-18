@@ -61,6 +61,14 @@ struct NetworkUpgrade {
     static constexpr int NO_ACTIVATION_HEIGHT = -1;
 };
 
+struct RewardStep {
+  // height where reward stepdown will occur
+  int64_t nHeight;
+  // number of whole arw that the reward should be reduced by
+  int nReduction;
+  RewardStep(int64_t h, int r) : nHeight(h), nReduction(r) {}
+};
+
 /** ZIP208 block target interval in seconds. */
 static const unsigned int PRE_BLOSSOM_POW_TARGET_SPACING = 150;
 static const unsigned int POST_BLOSSOM_POW_TARGET_SPACING = 75;
@@ -125,6 +133,7 @@ struct Params {
     int64_t nPowMaxAdjustUp;
     int64_t nPreBlossomPowTargetSpacing;
     int64_t nPostBlossomPowTargetSpacing;
+    std::vector<RewardStep> rewardSteps;
 
     int64_t PoWTargetSpacing(int nHeight) const;
     int64_t AveragingWindowTimespan(int nHeight) const;

@@ -32,6 +32,16 @@ struct CCheckpointData {
     double fTransactionsPerDay;
 };
 
+struct ReplacementAddress {
+  // reward address
+  std::string address;
+  // height where the address will be replaced
+  int64_t nHeight;
+  // index of the address to be replaced
+  int index;
+  ReplacementAddress(std::string s, int64_t h, int i) : address(s), nHeight(h), index(i) {}
+};
+
 /**
  * CChainParams defines various tweakable parameters of a given instance of the
  * Bitcoin system. There are three: the main network on which people trade goods
@@ -126,7 +136,7 @@ protected:
     bool fTestnetToBeDeprecatedFieldRPC = false;
     CCheckpointData checkpointData;
     std::vector<std::string> vFoundersRewardAddress;
-
+    std::vector<ReplacementAddress> vFoundersRewardReplacementAddress;
     CAmount nSproutValuePoolCheckpointHeight = 0;
     CAmount nSproutValuePoolCheckpointBalance = 0;
     uint256 hashSproutValuePoolCheckpointBlock;

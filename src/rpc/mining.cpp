@@ -874,11 +874,11 @@ UniValue getblocksubsidy(const UniValue& params, bool fHelp)
             "}\n"
             "\nExamples:\n"
             + HelpExampleCli("getblocksubsidy", "1000")
-            + HelpExampleRpc("getblockubsidy", "1000")
+            + HelpExampleRpc("getblocksubsidy", "1000")
         );
 
     LOCK(cs_main);
-    int nHeight = (params.size()==1) ? params[0].get_int() : chainActive.Height();
+    int nHeight = (params.size()==1) ? params[0].get_int() : (chainActive.Height() + 1);
     if (nHeight < 0)
         throw JSONRPCError(RPC_INVALID_PARAMETER, "Block height out of range");
 
