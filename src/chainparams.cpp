@@ -220,7 +220,7 @@ public:
           {"aw8MnQYsjxnfevUQKuGYhteZ1WoGWsk3VkA", (174720 * 2), 4}
         };
 
-        assert(vFoundersRewardAddress.size() <= consensus.GetLastFoundersRewardBlockHeight());
+        assert(vFoundersRewardAddress.size() <= consensus.GetLastFoundersRewardBlockHeight(0));
     }
 };
 static CMainParams mainParams;
@@ -363,7 +363,7 @@ public:
         vFoundersRewardReplacementAddress = {
           {"t2QpsQKSEzr39jGT2Kqy9kZrSTJs4rp16tg", (3700), 1}
         };
-        assert(vFoundersRewardAddress.size() <= consensus.GetLastFoundersRewardBlockHeight());
+        assert(vFoundersRewardAddress.size() <= consensus.GetLastFoundersRewardBlockHeight(0));
     }
 };
 static CTestNetParams testNetParams;
@@ -476,7 +476,7 @@ public:
         vFoundersRewardReplacementAddress = {
           {"aw8MnQYsjxnfevUQKuGYhteZ1WoGWsk3VkA", (10000), 0}
         };
-        assert(vFoundersRewardAddress.size() <= consensus.GetLastFoundersRewardBlockHeight());
+        assert(vFoundersRewardAddress.size() <= consensus.GetLastFoundersRewardBlockHeight(0));
     }
 
     void UpdateNetworkUpgradeParameters(Consensus::UpgradeIndex idx, int nActivationHeight)
@@ -547,7 +547,7 @@ bool SelectParamsFromCommandLine()
 
 // Block height must be >0 and <=last founders reward block height
 std::string CChainParams::GetFoundersRewardAddressAtHeight(int nHeight) const {
-  int maxHeight = consensus.GetLastFoundersRewardBlockHeight();
+  int maxHeight = consensus.GetLastFoundersRewardBlockHeight(0);
   assert(nHeight > 0 && nHeight <= maxHeight);
   int i = nHeight;
   if (nHeight >= vFoundersRewardAddress.size()) {

@@ -1645,8 +1645,6 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CValidationState &state, const CTransa
         {
             return error("AcceptToMemoryPool: BUG! PLEASE REPORT THIS! ConnectInputs failed against MANDATORY but not STANDARD flags %s", hash.ToString());
         }
-
-        }
     }
 
     return true;
@@ -3985,6 +3983,8 @@ bool ContextualCheckBlock(
     // the block reward to a founders reward script, until the last founders
     // reward block is reached, with exception of the genesis block.
     // The last founders reward block is defined as the block just before the
+    // first subsidy halving block, which occurs at halving_interval + slow_start_shift
+    if ((nHeight > 0) && (nHeight <= consensusParams.GetLastFoundersRewardBlockHeight(nHeight))) {
         bool found = false;
 
         BOOST_FOREACH(const CTxOut& output, block.vtx[0].vout) {
@@ -4824,6 +4824,7 @@ bool LoadBlockIndex()
     return true;
 }
 
+bool InitBlockIndex(const CChainParams& chainparams)
 {
     LOCK(cs_main);
 
