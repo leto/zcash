@@ -2745,11 +2745,11 @@ int CWallet::ScanForWalletTransactions(CBlockIndex* pindexStart, bool fUpdate)
               ChainTipAdded(pindex, &block, sproutTree, saplingTree, false);
             }
 
-            pindex = chainActive.Next(pindex);
             if (GetTime() >= nNow + 60) {
                 nNow = GetTime();
                 LogPrintf("Still rescanning. At block %d. Progress=%f\n", pindex->nHeight, Checkpoints::GuessVerificationProgress(chainParams.Checkpoints(), pindex));
             }
+            pindex = chainActive.Next(pindex);
         }
 
         // After rescanning, persist Sapling note data that might have changed, e.g. nullifiers.
