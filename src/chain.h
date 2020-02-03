@@ -17,6 +17,7 @@
 
 static const int SPROUT_VALUE_VERSION = 1001400;
 static const int SAPLING_VALUE_VERSION = 1010100;
+extern bool fZindex;
 
 class CBlockFileInfo
 {
@@ -553,6 +554,22 @@ public:
 
         // If you have just added new serialized fields above, remember to add
         // them to CBlockTreeDB::LoadBlockIndexGuts() in txdb.cpp :)
+
+        // These values only serialized when -zindex enabled
+        // Order is important!
+        if((s.GetType() & SER_DISK) && fZindex) {
+            READWRITE(nShieldedTx);
+            READWRITE(nShieldingTx);
+            READWRITE(nDeshieldingTx);
+            READWRITE(nFullyShieldedTx);
+            READWRITE(nPayments);
+            READWRITE(nNotarizations);
+            READWRITE(nShieldedPayments);
+            READWRITE(nShieldingPayments);
+            READWRITE(nDeshieldingPayments);
+            READWRITE(nFullyShieldedPayments);
+            READWRITE(nShieldedOutputs);
+        }
     }
 
     uint256 GetBlockHash() const
