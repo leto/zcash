@@ -1290,6 +1290,13 @@ UniValue reconsiderblock(const UniValue& params, bool fHelp)
     return NullUniValue;
 }
 
+inline CBlockIndex* LookupBlockIndex(const uint256& hash)
+{
+    AssertLockHeld(cs_main);
+    BlockMap::const_iterator it = mapBlockIndex.find(hash);
+    return it == mapBlockIndex.end() ? nullptr : it->second;
+}
+
 // Every coin can have different number of coinbase due to Founders Reward addresses/etc
 // If this value changes, a reindex on nodes is not necessary.
 #define COINBASE_PER_BLOCK 2 // ARW has 2 coinbase per block, update this if that ever changes
