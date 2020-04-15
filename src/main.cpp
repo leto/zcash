@@ -3676,9 +3676,10 @@ bool ReceivedBlockTransactions(
         // TODO: A nefarious user could create xtns which meet these criteria and skew stats, what
         // else can we look for which is not full validation?
         // Can we filter on properties of tx.vout[0] ?
-        if(tx.vin.size()==13 && tx.vout.size()==2 && tx.vout[1].scriptPubKey.IsOpReturn() && tx.vout[1].nValue==0) {
-            nNotarizations++;
-        }
+        // NOTE: If Arrow ever turns on dpow and wants to track notarizations, uncomment this
+        //if(tx.vin.size()==13 && tx.vout.size()==2 && tx.vout[1].scriptPubKey.IsOpReturn() && tx.vout[1].nValue==0) {
+        //    nNotarizations++;
+        //}
 
         //NOTE: These are at best heuristics. Improve them as much as possible.
         //      You cannot compare stats generated from different sets of heuristics, so
