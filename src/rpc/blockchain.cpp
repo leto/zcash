@@ -1298,9 +1298,10 @@ UniValue reconsiderblock(const UniValue& params, bool fHelp)
 #define ORG(X)  ( (X - COINBASE_PER_BLOCK*blockcount - nNotarizationsDiff) > 0 ? (X - COINBASE_PER_BLOCK*blockcount - nNotarizationsDiff) : 0 )
 
 //TODO: Allow custom error message in this macro
-#define THROW_IF_SYNCING(INSYNC)  if (INSYNC == 0) { throw runtime_error(strprintf("%s: Chain still syncing at height %d, aborting to prevent garbage data. Please wait until the chain is synced to run this RPC",__FUNCTION__,chainActive.Tip()->GetHeight())); }
+//NOTE: Arrow does not have this
+//#define THROW_IF_SYNCING(INSYNC)  if (INSYNC == 0) { throw runtime_error(strprintf("%s: Chain still syncing at height %d, aborting to prevent garbage data. Please wait until the chain is synced to run this RPC",__FUNCTION__,chainActive.Tip()->GetHeight())); }
 
-UniValue getchaintxstats(const UniValue& params, bool fHelp, const CPubKey& mypk)
+UniValue getchaintxstats(const UniValue& params, bool fHelp)
 {
     //TODO: ZEC does not have this.
     //THROW_IF_SYNCING(KOMODO_INSYNC);
@@ -1367,7 +1368,7 @@ UniValue getchaintxstats(const UniValue& params, bool fHelp, const CPubKey& mypk
         );
 
     const CBlockIndex* pindex;
-    int blockcount = 30 * 24 * 60 * 60 / Params().GetConsensus().nPowTargetSpacing; // By default: 1 month
+    int blockcount = 57600; // 30 * 24 * 60 * 60 / Params().GetConsensus().nPowTargetSpacing; // By default: 1 month
 
     if (params[1].isNull()) {
         LOCK(cs_main);
@@ -1387,16 +1388,16 @@ UniValue getchaintxstats(const UniValue& params, bool fHelp, const CPubKey& mypk
     assert(pindex != nullptr);
 
     if (params[0].isNull()) {
-        blockcount = std::max(0, std::min(blockcount, pindex->GetHeight() - 1));
+        blockcount = std::max(0, std::min(blockcount, pindex->nHeight - 1));
     } else {
         blockcount = params[0].get_int();
 
-        if (blockcount < 0 || (blockcount > 0 && blockcount >= pindex->GetHeight())) {
+        if (blockcount < 0 || (blockcount > 0 && blockcount >= pindex->nHeight)) {
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid block count: should be between 0 and the block's height - 1");
         }
     }
 
-    const CBlockIndex* pindexPast = pindex->GetAncestor(pindex->GetHeight() - blockcount);
+    const CBlockIndex* pindexPast = pindex->GetAncestor(pindex->nHeight - blockcount);
     int nTimeDiff                 = pindex->GetMedianTimePast() - pindexPast->GetMedianTimePast();
     int nTxDiff                   = pindex->nChainTx - pindexPast->nChainTx;
 
@@ -1404,7 +1405,7 @@ UniValue getchaintxstats(const UniValue& params, bool fHelp, const CPubKey& mypk
     ret.pushKV("time", (int64_t)pindex->nTime);
     ret.pushKV("txcount", (int64_t)pindex->nChainTx);
     ret.pushKV("window_final_block_hash", pindex->GetBlockHash().GetHex());
-    ret.pushKV("window_final_block_height", pindex->GetHeight());
+    ret.pushKV("window_final_block_height", pindex->nHeight);
     ret.pushKV("window_block_count", blockcount);
 
     if (fZindex) {
