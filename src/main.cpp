@@ -3802,7 +3802,7 @@ bool ReceivedBlockTransactions(
 
     if (fZindex)
         fprintf(stderr, "ht.%d, ShieldedPayments=%d, ShieldedTx=%d, ShieldedOutputs=%d, FullyShieldedTx=%d, ntz=%d\n",
-        pindexNew->GetHeight(), nShieldedPayments, nShieldedTx, nShieldedOutputs, nFullyShieldedTx, nNotarizations );
+        pindexNew->nHeight, nShieldedPayments, nShieldedTx, nShieldedOutputs, nFullyShieldedTx, nNotarizations );
 
     return true;
 }
