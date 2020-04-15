@@ -16,6 +16,7 @@
 #include "streams.h"
 #include "sync.h"
 #include "util.h"
+#include "wallet/wallet.h"
 
 #include <stdint.h>
 
