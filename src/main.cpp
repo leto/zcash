@@ -43,6 +43,7 @@
 #include <boost/static_assert.hpp>
 
 using namespace std;
+extern bool fZindex;
 
 #if defined(NDEBUG)
 # error "Arrow cannot be compiled without assertions."
@@ -77,6 +78,7 @@ bool fIsBareMultisigStd = true;
 bool fCheckBlockIndex = false;
 bool fCheckpointsEnabled = true;
 bool fCoinbaseEnforcedProtectionEnabled = true;
+bool fZindex = false;
 size_t nCoinCacheUsage = 5000 * 300;
 uint64_t nPruneTarget = 0;
 bool fAlerts = DEFAULT_ALERTS;

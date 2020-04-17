@@ -76,6 +76,7 @@ using namespace std;
 extern void ThreadSendAlert();
 
 ZCJoinSplit* pzcashParams = NULL;
+extern bool fZindex;
 
 #ifdef ENABLE_WALLET
 CWallet* pwalletMain = NULL;

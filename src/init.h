@@ -13,7 +13,6 @@
 
 class CScheduler;
 class CWallet;
-extern bool fZindex;
 
 namespace boost
 {
