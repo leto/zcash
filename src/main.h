@@ -52,7 +52,6 @@ class CScriptCheck;
 class CValidationInterface;
 class CValidationState;
 class PrecomputedTransactionData;
-extern bool fZindex;
 
 struct CNodeStateStats;
 
