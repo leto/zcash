@@ -350,6 +350,33 @@ public:
         nChainWork = arith_uint256();
         nTx = 0;
         nChainTx = 0;
+
+        // Shieldex Index chain stats
+        nChainPayments = 0;
+        nChainShieldedTx = 0;
+        nChainShieldingTx = 0;
+        nChainDeshieldingTx = 0;
+        nChainNotarizations = 0;
+        nChainFullyShieldedTx = 0;
+        nChainShieldedOutputs = 0;
+        nChainShieldedPayments = 0;
+        nChainShieldingPayments = 0;
+        nChainDeshieldingPayments = 0;
+        nChainFullyShieldedPayments = 0;
+
+        // Shieldex Index stats
+        nPayments = 0;
+        nShieldedTx = 0;
+        nShieldingTx = 0;
+        nNotarizations = 0;
+        nDeshieldingTx = 0;
+        nShieldedOutputs = 0;
+        nFullyShieldedTx = 0;
+        nShieldedPayments = 0;
+        nShieldingPayments = 0;
+        nDeshieldingPayments = 0;
+        nFullyShieldedPayments = 0;
+
         nStatus = 0;
         nCachedBranchId = boost::none;
         hashSproutAnchor = uint256();
